@@ -282,11 +282,11 @@ export function createFFmpegResource(
 ): AudioResource | void {
 	const finalArgs: string[] = [];
 
+	if (typeof input === 'string') finalArgs.push('-i', input);
+	options.inlineVolume ? finalArgs.push(...FFMPEG_PCM_ARGUMENTS) : finalArgs.push(...FFMPEG_OPUS_ARGUMENTS);
 	if (options.arguments && options.arguments.length !== 0) {
 		finalArgs.push(...options.arguments);
 	}
-	if (typeof input === 'string') finalArgs.push('-i', input);
-	options.inlineVolume ? finalArgs.push(...FFMPEG_PCM_ARGUMENTS) : finalArgs.push(...FFMPEG_OPUS_ARGUMENTS);
 	const ffmpegInstance = new FFmpeg({
 		args: finalArgs,
 	});
